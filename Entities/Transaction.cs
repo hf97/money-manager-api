@@ -9,7 +9,7 @@ namespace money_manager_api.Entities
         public Guid UserId { get; set; }
         public User User { get; set; }
 
-        public Guid TransactionTypeId { get; set; }
+        public int TransactionTypeId { get; set; }
         public TransactionType TransactionType { get; set; }
 
         public Guid AccountId { get; set; }
