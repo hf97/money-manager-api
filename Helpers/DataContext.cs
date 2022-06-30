@@ -40,6 +40,57 @@ namespace money_manager_api.Helpers
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.User)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.Currency)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.Color)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.Color)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.User)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<Category>()
+            //    .HasData();
+
+            //modelBuilder.Entity<Color>()
+            //    .HasData();
+
+            //modelBuilder.Entity<Country>()
+            //    .HasData();
+
+            //modelBuilder.Entity<Currency>()
+            //    .HasData();
+
+            //modelBuilder.Entity<PaymentType>()
+            //    .HasData();
+
+            modelBuilder.Entity<Permission>()
+                .HasData(
+                    new Permission
+                    {
+                        Id = 1,
+                        Name = "admin",
+                        Description = "admin"
+                    },
+                    new Permission
+                    {
+                        Id = 2,
+                        Name = "user",
+                        Description = "user"
+                    }
+                );
+
             modelBuilder.Entity<Status>()
                 .HasData(
                     new Status
@@ -61,6 +112,17 @@ namespace money_manager_api.Helpers
                         ModifiedBy = "admin"
                     }
                 );
+
+            modelBuilder.Entity<SubCategory>()
+                .HasOne(s => s.Color)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SubCategory>()
+                .HasOne(s => s.Category)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<SubCategory>()
+            //    .HasData();
 
             modelBuilder.Entity<TransactionType>()
                 .HasData(
@@ -84,7 +146,7 @@ namespace money_manager_api.Helpers
                     },
                     new TransactionType
                     {
-                        Id = 2,
+                        Id = 3,
                         Name = "Transfer",
                         CreatedAt = DateTimeOffset.UtcNow,
                         CreatedBy = "admin",
@@ -92,6 +154,18 @@ namespace money_manager_api.Helpers
                         ModifiedBy = "admin"
                     }
                 );
+
+            modelBuilder.Entity<TransactionAttachment>()
+                .HasOne(ta => ta.Transaction)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransactionAttachment>()
+                .HasOne(ta => ta.Attachment)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Permission)
+                .WithMany().OnDelete(DeleteBehavior.Restrict);
         }
 
         public override int SaveChanges()
