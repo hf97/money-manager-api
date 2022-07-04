@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using money_manager_api.Entities;
+using money_manager_api.Helpers.EntityConfigurations;
 
 namespace money_manager_api.Helpers
 {
@@ -31,7 +32,7 @@ namespace money_manager_api.Helpers
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<SubCategory> subCategories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionAttachment> TransactionAttachments{ get; set; }
@@ -40,132 +41,14 @@ namespace money_manager_api.Helpers
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Account>()
-                .HasOne(a => a.User)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Account>()
-                .HasOne(a => a.Currency)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Account>()
-                .HasOne(a => a.Color)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Category>()
-                .HasOne(c => c.Color)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Account>()
-                .HasOne(a => a.User)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Category>()
-            //    .HasData();
-
-            //modelBuilder.Entity<Color>()
-            //    .HasData();
-
-            //modelBuilder.Entity<Country>()
-            //    .HasData();
-
-            //modelBuilder.Entity<Currency>()
-            //    .HasData();
-
-            //modelBuilder.Entity<PaymentType>()
-            //    .HasData();
-
-            modelBuilder.Entity<Permission>()
-                .HasData(
-                    new Permission
-                    {
-                        Id = 1,
-                        Name = "admin",
-                        Description = "admin"
-                    },
-                    new Permission
-                    {
-                        Id = 2,
-                        Name = "user",
-                        Description = "user"
-                    }
-                );
-
-            modelBuilder.Entity<Status>()
-                .HasData(
-                    new Status
-                    {
-                        Id = 1,
-                        Name = "Complete",
-                        CreatedAt = DateTimeOffset.UtcNow,
-                        CreatedBy = "admin",
-                        ModifiedAt = DateTimeOffset.UtcNow,
-                        ModifiedBy = "admin"
-                    },
-                    new Status
-                    {
-                        Id = 2,
-                        Name = "Incomplete",
-                        CreatedAt = DateTimeOffset.UtcNow,
-                        CreatedBy = "admin",
-                        ModifiedAt = DateTimeOffset.UtcNow,
-                        ModifiedBy = "admin"
-                    }
-                );
-
-            modelBuilder.Entity<SubCategory>()
-                .HasOne(s => s.Color)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<SubCategory>()
-                .HasOne(s => s.Category)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<SubCategory>()
-            //    .HasData();
-
-            modelBuilder.Entity<TransactionType>()
-                .HasData(
-                    new TransactionType
-                    {
-                        Id = 1,
-                        Name = "Expense",
-                        CreatedAt = DateTimeOffset.UtcNow,
-                        CreatedBy = "admin",
-                        ModifiedAt = DateTimeOffset.UtcNow,
-                        ModifiedBy = "admin"
-                    },
-                    new TransactionType
-                    {
-                        Id = 2,
-                        Name = "Income",
-                        CreatedAt = DateTimeOffset.UtcNow,
-                        CreatedBy = "admin",
-                        ModifiedAt = DateTimeOffset.UtcNow,
-                        ModifiedBy = "admin"
-                    },
-                    new TransactionType
-                    {
-                        Id = 3,
-                        Name = "Transfer",
-                        CreatedAt = DateTimeOffset.UtcNow,
-                        CreatedBy = "admin",
-                        ModifiedAt = DateTimeOffset.UtcNow,
-                        ModifiedBy = "admin"
-                    }
-                );
-
-            modelBuilder.Entity<TransactionAttachment>()
-                .HasOne(ta => ta.Transaction)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TransactionAttachment>()
-                .HasOne(ta => ta.Attachment)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Permission)
-                .WithMany().OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusConfiguration());
+            modelBuilder.ApplyConfiguration(new SubCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionAttachmentConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
 
         public override int SaveChanges()

@@ -1,6 +1,6 @@
 ﻿namespace money_manager_api.Entities
 {
-    public class SubCategory
+    public class SubCategory : BaseEntity
     {
         public Guid Id { get; set; }
 
