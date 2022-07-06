@@ -6,11 +6,11 @@ namespace money_manager_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AttachmentController : ControllerBase
+    public class AttachmentsController : ControllerBase
     {
         private readonly IAttachmentService _attachmentService;
 
-        public AttachmentController(IAttachmentService attachmentService)
+        public AttachmentsController(IAttachmentService attachmentService)
         {
             _attachmentService = attachmentService;
         }

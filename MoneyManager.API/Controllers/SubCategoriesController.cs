@@ -6,38 +6,39 @@ namespace money_manager_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AccountController : ControllerBase
+    public class SubCategoriesController : ControllerBase
     {
-        private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly ISubCategoryService _subCategoryService;
+
+        public SubCategoriesController(ISubCategoryService subCategoryService)
         {
-            _accountService = accountService;
+            _subCategoryService = subCategoryService;
         }
 
         [HttpGet("all")]
-        public IEnumerable<Account> GetAll()
+        public IEnumerable<SubCategory> GetAll()
         {
-            return _accountService.GetAll();
+            return _subCategoryService.GetAll();
         }
 
         [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = _accountService.GetByIdAsync(id);
+            var result = _subCategoryService.GetByIdAsync(id);
 
             return (result != null) ? Ok(result) : NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Account account)
+        public async Task<IActionResult> Post([FromBody] SubCategory subCategory)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid request body.");
 
             try
             {
-                var result = await _accountService.CreateAsync(account);
-                return Created(new Uri(Url.Link("create", new { id = account.Id })), result);
+                var result = await _subCategoryService.CreateAsync(subCategory);
+                return Created(new Uri(Url.Link("create", new { id = subCategory.Id })), result);
             }
             catch (KeyNotFoundException)
             {
@@ -50,18 +51,18 @@ namespace money_manager_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Account account)
+        public async Task<IActionResult> Put(Guid id, [FromBody] SubCategory subCategory)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid request body.");
 
-            var entity = await _accountService.GetByIdAsync(id);
+            var entity = await _subCategoryService.GetByIdAsync(id);
             if (entity == null)
                 return NotFound();
 
             try
             {
-                var result = await _accountService.PatchAsync(id, account);
+                var result = await _subCategoryService.PatchAsync(id, subCategory);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -71,18 +72,18 @@ namespace money_manager_api.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Patch(Guid id, [FromBody] Account account)
+        public async Task<IActionResult> Patch(Guid id, [FromBody] SubCategory subCategory)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid request body.");
 
-            var entity = await _accountService.GetByIdAsync(id);
+            var entity = await _subCategoryService.GetByIdAsync(id);
             if (entity == null)
                 return NotFound();
 
             try
             {
-                var result = await _accountService.PatchAsync(id, account);
+                var result = await _subCategoryService.PatchAsync(id, subCategory);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -96,7 +97,7 @@ namespace money_manager_api.Controllers
         {
             try
             {
-                await _accountService.DeleteAsync(id);
+                await _subCategoryService.DeleteAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException)

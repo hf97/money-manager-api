@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "money_manager_api": {
+    "MoneyManeger.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
