@@ -15,6 +15,8 @@ namespace money_manager_api.Helpers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to sql server database
