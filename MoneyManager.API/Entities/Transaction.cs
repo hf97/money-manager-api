@@ -15,7 +15,7 @@ namespace money_manager_api.Entities
         public Guid AccountId { get; set; }
         public Account Account { get; set; }
 
-        [Precision(18,2)]
+        [Precision(18, 2)]
         public decimal Quantity { get; set; }
 
         public Guid CurrencyId { get; set; }

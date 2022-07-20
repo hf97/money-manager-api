@@ -37,8 +37,8 @@ namespace money_manager_api.Helpers
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransactionAttachment> TransactionAttachments{ get; set; }
-        public DbSet<TransactionType> TransactionTypes{ get; set; }
+        public DbSet<TransactionAttachment> TransactionAttachments { get; set; }
+        public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
