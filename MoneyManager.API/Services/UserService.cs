@@ -55,10 +55,10 @@ namespace money_manager_api.Services
             user.PermissionId = patch.PermissionId;
             // todo test
             user.Permission = patch.Permission;
-            user.PasswordHash = patch.PasswordHash;
-            user.PasswordSalt = patch.PasswordSalt;
-            user.RecoverToken = patch.RecoverToken;
-            user.RecoverExpiration = patch.RecoverExpiration;
+            //user.PasswordHash = patch.PasswordHash;
+            //user.PasswordSalt = patch.PasswordSalt;
+            //user.RecoverToken = patch.RecoverToken;
+            //user.RecoverExpiration = patch.RecoverExpiration;
 
             try
             {

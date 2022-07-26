@@ -11,7 +11,7 @@ namespace money_manager_api.Services
         Task<Address> CreateAsync(Address address);
 
         Task<Address> PatchAsync(Guid id, Address address);
-        
+
         Task<bool> DeleteAsync(Guid id);
     }
 }

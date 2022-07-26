@@ -17,12 +17,12 @@
         public int PermissionId { get; set; } = 2;
         public Permission Permission { get; set; }
 
-        public byte[] PasswordHash { get; set; }
+        //public byte[] PasswordHash { get; set; }
 
-        public byte[] PasswordSalt { get; set; }
+        //public byte[] PasswordSalt { get; set; }
 
-        public Guid RecoverToken { get; set; } = Guid.Empty;
+        //public Guid RecoverToken { get; set; } = Guid.Empty;
 
-        public DateTime? RecoverExpiration { get; set; }
+        //public DateTime? RecoverExpiration { get; set; }
     }
 }

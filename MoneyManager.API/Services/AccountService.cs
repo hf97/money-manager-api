@@ -48,22 +48,22 @@ namespace money_manager_api.Services
             _context.Entry(account).Property(p => p.ModifiedAt).IsModified = false;
 
             account.UserId = patch.UserId;
-            
+
             account.User = patch.User;
-            
+
             account.Icon = patch.Icon;
             account.Name = patch.Name;
             account.Iban = patch.Iban;
             account.CurrencyId = patch.CurrencyId;
             //test
             account.Currency = patch.Currency;
-            
+
             //test
             account.ColorId = patch.ColorId;
-            
+
             //test
             account.Color = patch.Color;
-            
+
             account.UseInStatistics = patch.UseInStatistics;
             account.Archived = patch.Archived;
 

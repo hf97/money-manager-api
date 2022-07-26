@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using money_manager_api.Helpers;
 using money_manager_api.Services;
@@ -32,6 +33,20 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+
+    endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+    {
+        Predicate = _ => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+
+    endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+    {
+        Predicate = r => r.Name.Contains("self")
+    });
+});
 
 app.Run();

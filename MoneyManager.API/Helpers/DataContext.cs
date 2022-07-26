@@ -9,18 +9,12 @@ namespace money_manager_api.Helpers
         protected readonly IConfiguration _configuration;
         protected readonly IHttpContextAccessor _httpContextAccessor;
 
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
         public DataContext(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
-        }
-
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            // connect to sql server database
-            options.UseSqlServer(_configuration.GetConnectionString("MoneyManagerDatabase"));
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -57,7 +51,8 @@ namespace money_manager_api.Helpers
         {
             var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
-            string username = _httpContextAccessor.HttpContext.User.Identity.Name;
+            //string username = _httpContextAccessor.HttpContext.User.Identity.Name;
+            string username = "cenas";
 
             foreach (var entity in entities)
             {
@@ -78,7 +73,8 @@ namespace money_manager_api.Helpers
         {
             var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
-            string username = _httpContextAccessor.HttpContext.User.Identity.Name;
+            //string username = _httpContextAccessor.HttpContext.User.Identity.Name;
+            string username = "cenas";
 
             foreach (var entity in entities)
             {
